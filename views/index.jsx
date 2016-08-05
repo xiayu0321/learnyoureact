@@ -2,7 +2,7 @@ import React from 'react';
 
 export default class TodoBox extends React.Component {
     // Omitted
-    render (){
+    render(){
         return (
             <div className="todoBox">
                 <h1>Todos</h1>
@@ -14,10 +14,11 @@ export default class TodoBox extends React.Component {
 }
 
 class TodoList extends React.Component {
-    render() {
+    // Omitted
+    render(){
         return (
             <div className="todoList">
-                <table style={{border: "2px solid black"}}>
+                <table style={{border:"2px solid black"}}>
                     <tbody>
                     <Todo title="Shopping">Milk</Todo>
                     <Todo title="Hair cut">13:00</Todo>
@@ -30,19 +31,31 @@ class TodoList extends React.Component {
 }
 
 class Todo extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state=({checked:false});
+    }
+
+
+    handleChange(e) {
+        this.setState({checked: e.target.checked});
+    }
+
     render() {
-        Todo.propTypes = {
-            title: React.PropTypes.number.isRequired
-        };
         return (
             <tr>
+                <td style={{border: "1px solid black"}}>
+                    <input type="checkbox" checked={this.state.checked} onChange={this.handleChange.bind(this)}/>
+                </td>
                 <td style={{border: "1px solid black"}}>{this.props.title}</td>
                 <td style={{border: "1px solid black"}}>{this.props.children}</td>
             </tr>
         );
     }
 }
-
+       Todo.propTypes = {
+        title: React.PropTypes.string.isRequired
+}
 class TodoForm extends React.Component {
     // Omitted
     render(){
@@ -53,3 +66,4 @@ class TodoForm extends React.Component {
         );
     }
 }
+
